@@ -1,0 +1,23 @@
+{
+    "name": "niisan/some-discovery",
+    "description": "By using the type declaration, the processing class corresponding to a certain class is automatically linked.",
+    "type": "library",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Niisan\\SomeDiscovery\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "scripts": {
+        "test": "phpunit tests/"
+    }
+}
