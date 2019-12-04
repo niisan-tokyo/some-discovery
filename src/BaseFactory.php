@@ -9,6 +9,12 @@ class BaseFactory
 
     protected $classLinks = [];
 
+    /**
+     * Discovering process classes for given class
+     *
+     * @param string $class class name
+     * @return array
+     */
     public function discover(string $class = null): array
     {
         if (! $this->classLinks) {
@@ -18,6 +24,12 @@ class BaseFactory
         return ($class) ? $this->classLinks[$class] : $this->classLinks;
     }
 
+    /**
+     * Run corresponding methods of trigger object
+     *
+     * @param Object $obj trigger object
+     * @return void
+     */
     public function run(Object $obj)
     {
         $class = get_class($obj);
@@ -31,10 +43,14 @@ class BaseFactory
         return $ret;
     }
 
+    /**
+     * Make map showing trigger class and corresponding processing classes
+     *
+     * @return void
+     */
     protected function makeLinks()
     {
         $files = $this->getDirFiles($this->dir);
-        //print_r($files);
         foreach ($files as $file) {
             include_once($file);
         }
