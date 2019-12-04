@@ -4,6 +4,8 @@ namespace Test;
 use PHPUnit\Framework\TestCase;
 use Niisan\SomeDiscovery\BaseFactory;
 
+use Test\Sample\Config\Test1Config;
+
 class BaseFactoryTest extends TestCase
 {
 
@@ -33,5 +35,24 @@ class BaseFactoryTest extends TestCase
                 'Test\\Sample\\Process\\Test2Process@handle'
             ],
         ], $tests);
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function testRun()
+    {
+        $object = new class extends BaseFactory 
+        {
+            protected $dir = __DIR__ . '/Sample/Process';
+            protected $processClassPrefix = 'Test\\Sample\\Process\\';
+            protected $methodFilter = '^handle.*';
+        };
+
+        $trigger = new Test1Config();
+        $result = $object->run($trigger);
+        $this->assertEquals([null, 'Test\\Sample\\Config\\Test1Config', null], $result);
     }
 }

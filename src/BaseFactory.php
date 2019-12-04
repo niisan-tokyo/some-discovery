@@ -15,7 +15,20 @@ class BaseFactory
             $this->makeLinks();
         }
 
-        return $this->classLinks;
+        return ($class) ? $this->classLinks[$class] : $this->classLinks;
+    }
+
+    public function run(Object $obj)
+    {
+        $class = get_class($obj);
+        $processers = $this->discover($class);
+        $ret = [];
+        foreach ($processers as $processer) {
+            $arr = explode('@', $processer);
+            $processObject = new $arr[0];
+            $ret[] = $processObject->{$arr[1]}($obj);
+        }
+        return $ret;
     }
 
     protected function makeLinks()

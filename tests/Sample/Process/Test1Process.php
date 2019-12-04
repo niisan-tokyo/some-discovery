@@ -8,6 +8,6 @@ class Test1Process
 
     public function handle(Test1Config $config)
     {
-        //some process
+        return get_class($config);
     }
 }
