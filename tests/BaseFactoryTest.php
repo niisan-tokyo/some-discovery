@@ -16,17 +16,18 @@ class BaseFactoryTest extends TestCase
     {
         $object = new class extends BaseFactory 
         {
-            protected $dir = __DIR__ . '/Sample/';
+            protected $dir = __DIR__ . '/Sample/Process';
             protected $processClassPrefix = 'Test\\Sample\\Process\\';
-            protected $methods = 'handle*';
+            protected $methodFilter = '^handle.*';
         };
 
         $tests = $object->discover();
 
         $this->assertEquals([
             'Test\\Sample\\Config\\Test1Config' => [
+                'Test\Sample\Process\Sub\Test3Process@handle',
                 'Test\\Sample\\Process\\Test1Process@handle',
-                'Test\\Sample\\Process\\Test2Process@handleMore'
+                'Test\\Sample\\Process\\Test2Process@handleMore',
             ],
             'Test\\Sample\\Config\\Test2Config' => [
                 'Test\\Sample\\Process\\Test2Process@handle'
